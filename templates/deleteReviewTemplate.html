@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Review</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+<div class = "container">
+    <div class = "main header">
+        <h1>Are you sure you want to delete selected review?</h1>
+    </div>
+
+    <div class = "info">
+        <H2>Information of this review:</H2>
+        <H3>ID: $reviewID</H3>
+        <H3>Hotel ID: $hotelID</H3>
+        <H4>Text: </H4>
+        <p>$reviewText</p>
+    </div>
+
+    <div class = "option">
+        <form method = 'Post' action = '/hotel/delete?hotelID=${hotelID}&reviewID=${reviewID}'>
+            <H4>Delete?</H4>
+            <input type = 'hidden' name = 'hotelID' value = "${hotelID}"/>
+            <input type = 'hidden' name = 'reviewID' value = "${reviewID}"/>
+            <input type = 'submit' name = 'delete' value = 'Delete'>
+            <input type = "submit" value = "Go back"/>
+        </form>
+    </div>
+
+</div>
+
+
+</body>
+</html>

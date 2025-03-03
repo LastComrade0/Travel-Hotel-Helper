@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Service - Register</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class = 'jumbotron text-center'>
+  <h1> Log in for Hotel Travel Service</h1>
+</div>
+
+<div class = "container">
+
+  <form method = 'Post' action = '/register'>
+    <label for = 'username'>New username: </label><br>
+    <input type = 'text' id = 'username' name = 'username' maxlength='32'><br>
+    <label for = 'password'>New password: </label><br>
+    <input type = 'password' id = 'password' name = 'password' maxlength='32'><br>
+    <label for = 'password check'>Enter password again: </label><br>
+    <input type = 'password' id = 'password check' name = 'password check' maxlength='32'><br>
+    <input type = 'submit' value = 'Register'>
+    <input type = 'submit' name = 'back' value = 'Back'>
+    #if($error == "dupename")
+      <p style="color:red;">Username already taken</p>
+    #elseif($error == "passworderror")
+      <p style="color:red;">Password must contain at least 8 characters, 1 capitalized letter, and 1 special character.</p>
+    #elseif($error == "passwordmatch")
+      <p style="color:red;">Password does not match</p>
+    #end
+
+  </form>
+
+</div>
+</body>
+</html>

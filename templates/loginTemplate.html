@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Service - Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="javascript/loginHandle.js"></script>
+
+</head>
+<body>
+
+
+<div class = 'jumbotron text-center'>
+  <h1> Log in for Hotel Travel Service</h1>
+</div>
+
+
+<div class = "container">
+  <form name = "credential" method = 'Post' action = '/login' onsubmit="return checkEmpty()">
+    <label for = 'username'>Username: </label>
+    <input type = 'text' id = 'username' name = 'username' maxlength='32'><br>
+    <label for = 'password'>Password: </label>
+    <input type = 'password' id = 'password' name = 'password' maxlength='32'><br>
+      #if($error == true)
+      <p style="color:red;">Invalid login credential</p>
+      #end
+    <input type = 'submit' value = 'Enter'>
+    <input type = 'submit' name = 'register' value = 'Register'>
+
+
+  </form>
+</div>
+
+</body>
+
+</html>

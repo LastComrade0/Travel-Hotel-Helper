@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$hotelName</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="javascript/fetchReviews.js"></script>
+    <script src="javascript/toggleButton.js"></script>
+    <script src="javascript/addFavoriteHotel.js"></script>
+    <script src="javascript/addExpediaHistory.js"></script>
+    <style>
+
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        .row.content {
+            height: 100%;
+            position:absolute;
+        }
+
+
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {height:auto;}
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            font-size: 14px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .function-buttons{
+            display: flex;
+            gap: 100px;
+            justify-content: center;
+        }
+
+        .add-section{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .add-button {
+            box-shadow:inset 0px 1px 3px 0px #91b8b3;
+            background:linear-gradient(to bottom, #768d87 5%, #4e6161 100%);
+            background-color:#768d87;
+            border-radius:2px;
+            border:1px solid #566963;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:11px;
+            font-weight:bold;
+            padding:8px 6px;
+            text-decoration:none;
+            text-shadow:0px -1px 0px #2b665e;
+        }
+        .add-button:hover {
+            background:linear-gradient(to bottom, #4e6161 5%, #768d87 100%);
+            background-color:#4e6161;
+        }
+        .add-button:active {
+            position:relative;
+            top:1px;
+        }
+
+
+        .page-button {
+            box-shadow:inset 0px 1px 0px 0px #ffffff;
+            background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+            background-color:#ffffff;
+            border-radius:6px;
+            border:1px solid #dcdcdc;
+            display:inline-block;
+            cursor:pointer;
+            color:#666666;
+            font-family:Arial;
+            font-size:18px;
+            font-weight:bold;
+            padding:7px 10px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #ffffff;
+        }
+        .page-button:hover {
+            background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+            background-color:#f6f6f6;
+        }
+        .page-button:active {
+            position:relative;
+            top:1px;
+        }
+
+        .review-list {
+            padding: 20px;
+            width : 60%;
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+
+<nav class = "navbar navbar-inverse">
+    <div class = "container-fluid">
+        <div class = "container-header">
+            <a class = "navbar-brand" href="/mainpage">Travel Service</a>
+        </div>
+        <div class = "collapse navbar-collapse" id = "myNavbar">
+            <ul class = "nav navbar-nav">
+                <li><a href = '/favoriteHotel?userID=${userID}'>Favorite Hotel</a></li>
+                <li><a href = '/expediaHistory?userID=${userID}'>Expedia History</a></li>
+            </ul>
+            <ul class = "nav navbar-nav navbar-right">
+                <li>
+                    <form method="POST" action="/mainpage">
+                        <button type="submit" name="logout" class="btn btn-link">
+                            <span class="glyphicon glyphicon-log-out"></span> Logout
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class = "container-fluid text-center">
+    <div class = "row content">
+        <div class = "col-sm-2 sidenav">
+
+            <div>
+                <p>User id: $userID</p>
+            </div>
+
+        </div>
+
+        <div class = 'jumbotron text-center'>
+            <h1>$hotelName</h1>
+        </div>
+
+        <div class = "col-sm-8 text-left">
+            <h3>Hotel ID: $hotelID</h3>
+            <h3>Address: $address</h3>
+            <h3>Overall rating: $avgRating</h3>
+            <h3><span id="expediaWord" style="color: blue; text-decoration: underline; cursor: pointer;">Expedia</span></h3>
+
+            <script>
+                document.getElementById('expediaWord').addEventListener('click', function(event){
+                    event.preventDefault();
+
+                    const userid = `${userID}`;
+                    const urlString = `${expediaURL}`;
+
+                    addExpediaHistory(userid, urlString);
+
+                    window.location.href = `${expediaURL}`;
+
+
+                })
+            </script>
+
+            <div class = "function-buttons">
+                <div class = "add-section">
+                    <form id = "addFavorite" onsubmit="event.preventDefault(); addFavoriteHotel('$userID', '$hotelID');">
+
+                        <input type = 'submit' value = 'Add Favorite' class = "add-button"/>
+
+                    </form>
+
+                    <p id = "addFavoriteMessage"></p><br><br>
+                </div>
+
+
+                <div class = "addReview">
+                    <form action = '/hotel/add?hotelID=${hotelID}'>
+                        <input type = 'submit' value = 'Add Review' class = "add-button"/>
+                        <input type = 'hidden' name = 'hotelID' value = '${hotelID}'/>
+                    </form>
+
+                </div>
+
+                <form action = '/mainpage'>
+                    <input type = 'submit' name = 'mainpage' value = 'Main Page' class = "add-button"/>
+                </form>
+            </div>
+
+            <hr>
+
+            <div class = "container">
+
+                <form id = "reviewsform" onsubmit="event.preventDefault(); showReviews('$hotelID', '$sessionUser', getButtonValue(event));">
+                    #foreach($num in $reviewSize)
+                    <input type = 'submit' name = '${num}' value = '${num}' class = "page-button">
+                    #end
+                </form>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+
+                        // Trigger showReviews with default page (page1)
+                        showReviews('$hotelID', '$sessionUser', '1');
+                    });</script>
+
+                <div class = "review-list">
+                    <p id = "showReviews"></p>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

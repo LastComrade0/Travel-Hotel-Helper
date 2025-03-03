@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$username - Add Review</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class = 'container'>
+        <h1>Add review for $hotelID:</h1>
+        <div class = "add review">
+            <form method = 'Post' action = '/hotel/add?hotelID=${hotelID}'>
+                <H2>Add review here:</H2>
+                <label for = 'title'>Title: </label>
+                <input type = 'text' id = 'title' name = 'title'><br><br>
+
+                <label for = 'rating'>Rating(1-5): </label>
+                <input type = 'number' id = 'rating' name = 'rating' step = '0.1' min = '1.0' max = '5' pattern = '[0-9]{1}'><br><br>
+
+                <label for = 'reviewText'></label>
+                <textarea id= 'reviewText' name = 'reviewText' rows = "10" cols = "100">Write review here:</textarea><br>
+
+                <input type = 'submit' value = 'Add'>
+                <input type = 'submit' name = 'cancel' value = 'Cancel'/>
+                <input type = 'hidden' name = 'HotelID' value = '${hotelID}'/>
+
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Service Main Page - Search Hotel</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        .row.content {
+            height: 100%;
+            position: absolute;
+        }
+
+
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: 100%;
+                padding: 15px;
+            }
+            .row.content {height:100%;}
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            font-size: 14px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .submit-button {
+            box-shadow:inset 0px 1px 3px 0px #91b8b3;
+            background:linear-gradient(to bottom, #768d87 5%, #4e6161 100%);
+            background-color:#768d87;
+            border-radius:2px;
+            border:1px solid #566963;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:15px;
+            font-weight:bold;
+            padding:11px 24px;
+            text-decoration:none;
+            text-shadow:0px -1px 0px #2b665e;
+        }
+        .submit-button:hover {
+            background:linear-gradient(to bottom, #4e6161 5%, #768d87 100%);
+            background-color:#4e6161;
+        }
+        .submit-button:active {
+            position:relative;
+            top:1px;
+        }
+
+    </style>
+</head>
+<body>
+
+<script>
+    let height = $('.row.content').height();
+    $('.sidenav').height(height);
+</script>
+
+<nav class = "navbar navbar-inverse">
+    <div class = "container-fluid">
+        <div class = "container-header">
+            <a class = "navbar-brand" href="/mainpage">Travel Service</a>
+        </div>
+        <div class = "collapse navbar-collapse" id = "myNavbar">
+            <ul class = "nav navbar-nav">
+                <li><a href = '/favoriteHotel?userID=${userID}'>Favorite Hotel</a></li>
+                <li><a href = '/expediaHistory?userID=${userID}'>Expedia History</a></li>
+            </ul>
+            <ul class = "nav navbar-nav navbar-right">
+                <li>
+                    <form method="POST" action="/mainpage">
+                        <button type="submit" name="logout" class="btn btn-link">
+                            <span class="glyphicon glyphicon-log-out"></span> Logout
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class = "container-fluid text-center">
+  <div class = "row content">
+      <div class = "col-sm-2 sidenav">
+
+          <div>
+              <p>User id: $userID</p>
+              <p>Last login: $lastLogin</p>
+          </div>
+
+      </div>
+      <div class = "col-sm-8 text-left">
+          <h1>Welcome, $username!</h1>
+
+          <form method = 'Post' action = '/mainpage'>
+              <label for = 'hotelQuery'>Search Hotel: </label>
+              <input type = 'text' id = 'hotelQuery' name = 'hotelQuery'><br><br>
+              <input type = 'submit' value = 'Enter' class = "submit-button">
+          </form>
+
+          <hr>
+
+          <div class = "container">
+
+              <div class = "hotelList">
+                  <div class = col-sm-4>
+                      #if($queryFlag == true)
+                      <h4 style="font-weight: bold">Search result contains index: <span style='font-weight: bold; color: green;'>"$queryIndex"</span></h4><br>
+                      #end
+                      <h3>Available Hotels</h3>
+                      #foreach( $hotel in $hotels)
+
+                      <p><a href = '/hotel?hotelID=${hotel.getHotelID()}' >$hotel.getHotelName()</a></p>
+                      #end
+                  </div>
+              </div>
+
+          </div>
+      </div>
+      <div class = "col-sm-2 sidenav">
+          <p></p>
+      </div>
+  </div>
+</div>
+
+
+</body>
+</html>
